@@ -1,0 +1,13 @@
+<build>
+
+    <target value="linux"/>
+
+        <flag include="include"/>
+        <flag output="build/tor">
+
+        <source value="src/main.c"/>
+
+
+    </target>
+
+</build>
