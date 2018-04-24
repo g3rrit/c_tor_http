@@ -1,24 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "tcp.h"
-
-#include "socks.h"
-
+#include "http.h"
 #include "util.h"
+
+int callback(char *data, int size);
 
 int main()
 {
-    int error = tor_connect("www.google.de", "80");
-    if(error <= 0)
-    {
-        printf("error connecting to google\n");
-        printf("error: %s\n", socks_get_error(error));
-    }
 
-    char request[] = "GET / HTTP/1.1\r\nHost: www.google.de\r\n\r\n";
-
+    http_get("reddit.com", "/", &callback);
 
 
     return 0;
+}
+
+
+int callback(char *data, int size)
+{
+    char buffer[size];
+    memcpy(buffer, data, size);
+    buffer[size] = 0;
+    printf("received %i bytes:\n----------\n%s\n----------\n",size, buffer);
+    return 1;
 }

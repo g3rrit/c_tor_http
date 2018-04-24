@@ -30,7 +30,7 @@ int recv_to(int sock, int (*callback)(char *data, int size))
     while(1)
     {
         bytes = recv(sock, buffer, MAX_RECV, 0); 
-        if(bytes < 0)
+        if(bytes <= 0)
             break;
         total += bytes;
         if(!callback(buffer, bytes))
