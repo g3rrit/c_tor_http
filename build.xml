@@ -6,7 +6,10 @@
         <flag output="build/tor">
 
         <source value="src/main.c"/>
-
+        <source value="src/socks.c"/>
+        <source value="src/tcp.c"/>
+        <source value="src/dns.c"/>
+        <source value="src/util.c"/>
 
     </target>
 
