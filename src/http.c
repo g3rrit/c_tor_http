@@ -45,7 +45,7 @@ int https_get(char *host, char *url, int (*callback)(char *data, int size))
 
     printf("request:\n----------\n%s\n----------\n", request);
 
-    int sock = tor_connect(host, "80");
+    int sock = tor_connect(host, "443");
 
     if(sock <= 0)
     {
