@@ -8,9 +8,7 @@ int callback(char *data, int size);
 
 int main()
 {
-
     http_get("reddit.com", "/", &callback);
-
 
     return 0;
 }

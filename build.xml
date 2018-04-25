@@ -10,6 +10,9 @@
         <source value="src/util.c"/>
         <source value="src/http.c"/>
 
+        <flag link="ssl"/>
+        <flag link="crypto"/>
+
     </target>
 
 </build>

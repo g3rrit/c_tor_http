@@ -171,6 +171,10 @@ int socks5_request(int sock, char *ip, char *port)
             return 0;
     }
 
+    //test: socks still sends 2 bytes
+    if(!recv_all(sock, rx, 2))
+        return 0;
+
     return 1;
 }
 
