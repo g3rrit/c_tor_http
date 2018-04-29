@@ -42,8 +42,13 @@ int http_get_from_file(char *f_url, int (*callback)(char *data, int size))
     int request_size = ftell(file);
     rewind(file);
 
-    char request[request_size];
-    memset(request, 0, request_size);
+    char request[request_size + 3];
+    memset(request, 0, request_size + 3);
+
+    request[request_size] = '\r';
+    request[request_size+1] = '\n';
+
+    printf("lol\n");
 
     fread(request, 1, request_size, file);
 
@@ -55,7 +60,7 @@ int http_get_from_file(char *f_url, int (*callback)(char *data, int size))
     char *needle = strstr(request, "Host:");
     needle += 6;
 
-    for(int i = 0; needle[i] != '\r' || needle[i] != '\n'; i++)
+    for(int i = 0; needle[i] != 13; i++)
         host[i] = needle[i];
 
     printf("Host: %s\n", host);
@@ -70,7 +75,7 @@ int http_get_from_file(char *f_url, int (*callback)(char *data, int size))
         return 0;
     }
 
-    send_all(sock, request, request_size);
+    send_all(sock, request, request_size + 3);
 
     int recv_bytes = recv_to(sock, callback);
 
@@ -135,11 +140,11 @@ int https_get_from_file(char *f_url, int (*callback)(char *data, int size))
     int request_size = ftell(file);
     rewind(file);
 
-    char request[request_size + 2];
-    memset(request, 0, request_size);
+    char request[request_size + 3];
+    memset(request, 0, request_size + 3);
 
     request[request_size] = '\r';
-    request[request_size] = '\n';
+    request[request_size+1] = '\n';
 
     fread(request, 1, request_size, file);
 
@@ -150,8 +155,6 @@ int https_get_from_file(char *f_url, int (*callback)(char *data, int size))
 
     char *needle = strstr(request, "Host:");
     needle += 6;
-
-    printf("needle: %s\n", needle);
 
     for(int i = 0; needle[i] != 13; i++)
         host[i] = needle[i];
@@ -185,7 +188,7 @@ int https_get_from_file(char *f_url, int (*callback)(char *data, int size))
         goto close;
     }
 
-    ssl_send_all(ssl, request, request_size);
+    ssl_send_all(ssl, request, request_size + 3);
 
     recv_bytes = ssl_recv_to(ssl, callback);
 
