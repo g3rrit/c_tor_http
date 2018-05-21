@@ -1,18 +1,21 @@
-<build>
+<build compiler="gcc">
 
-    <target value="linux"/>
+    <option> -o build/a.out </option>
 
-        <flag include="include"/>
-        <flag output="build/tor">
+    <option prefix="-I">
+        include
+    </option>
 
-        <source value="src/main.c"/>
-        <source value="src/socks.c"/>
-        <source value="src/util.c"/>
-        <source value="src/http.c"/>
+    <option>
+        src/main.c
+        src/socks.c
+        src/util.c
+        src/http.c
+    </option>
 
-        <flag link="ssl"/>
-        <flag link="crypto"/>
-
-    </target>
+    <option prefix="-l">
+        ssl
+        crypto
+    </option>
 
 </build>
