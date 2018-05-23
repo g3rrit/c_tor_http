@@ -10,7 +10,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
-#include "openssl/ssl.h"
+#include <openssl/ssl.h>
 
 int recv_all(int sock, char *data, int size);
 

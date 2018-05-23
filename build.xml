@@ -2,11 +2,13 @@
 
     <option> -o build/a.out </option>
 
-    <option prefix="-I">
+    <option> -w </option>
+
+    <option include="true" prefix="-I">
         include
     </option>
 
-    <option>
+    <option include="true">
         src/main.c
         src/socks.c
         src/util.c
